@@ -60,6 +60,21 @@ function requireStripe(res) {
   return true;
 }
 
+// Stripe SDK errors (esp. StripeConnectionError) hide the actual root cause
+// behind a generic message. Log everything useful so it shows up in Railway
+// logs instead of just "An error occurred with our connection to Stripe."
+function logStripeError(label, err) {
+  console.error(`${label}: ${err.message}`);
+  if (err.type) console.error(`  type: ${err.type}`);
+  if (err.code) console.error(`  code: ${err.code}`);
+  if (err.detail) {
+    const d = err.detail;
+    console.error(`  underlying cause: ${d && d.message ? d.message : d}`);
+    if (d && d.code) console.error(`  underlying code: ${d.code}`);
+    if (d && d.stack) console.error(`  underlying stack: ${d.stack}`);
+  }
+}
+
 // --- Start checkout (one-time export or subscription) -------------------
 app.post("/api/create-checkout-session", async (req, res) => {
   if (!requireStripe(res)) return;
@@ -92,7 +107,7 @@ app.post("/api/create-checkout-session", async (req, res) => {
 
     res.json({ url: session.url });
   } catch (err) {
-    console.error("create-checkout-session error:", err.message);
+    logStripeError("create-checkout-session error", err);
     res.status(500).json({ error: "Could not start checkout." });
   }
 });
@@ -117,7 +132,7 @@ app.get("/api/verify-session", async (req, res) => {
       customerEmail: session.customer_details ? session.customer_details.email : null,
     });
   } catch (err) {
-    console.error("verify-session error:", err.message);
+    logStripeError("verify-session error", err);
     res.status(400).json({ paid: false, error: "Could not verify this payment." });
   }
 });
@@ -132,7 +147,7 @@ app.post("/api/check-subscription", async (req, res) => {
     const active = await hasActiveSubscription(email);
     res.json({ active });
   } catch (err) {
-    console.error("check-subscription error:", err.message);
+    logStripeError("check-subscription error", err);
     res.status(500).json({ active: false });
   }
 });
@@ -169,7 +184,7 @@ app.post("/api/create-portal-session", async (req, res) => {
     });
     res.json({ url: portalSession.url });
   } catch (err) {
-    console.error("create-portal-session error:", err.message);
+    logStripeError("create-portal-session error", err);
     res.status(500).json({ error: "Could not open the billing portal." });
   }
 });

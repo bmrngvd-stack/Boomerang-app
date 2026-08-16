@@ -2,7 +2,10 @@
 FROM node:20-slim
 
 # Real FFmpeg binary — needed for the server-side clean (paid) export.
-RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg \
+# ca-certificates — the slim base image can be missing an up-to-date CA
+# bundle, which breaks outbound HTTPS calls to the Stripe API.
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg ca-certificates \
+    && update-ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
