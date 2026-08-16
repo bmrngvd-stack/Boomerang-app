@@ -111,6 +111,10 @@ app.post("/api/create-checkout-session", async (req, res) => {
       success_url: `${SITE_URL}/export.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${SITE_URL}/studio.html`,
       customer_email: email || undefined,
+      // Managed Payments (new Stripe account default) requires a tax_code on
+      // every product before it'll create a session. We're not using Stripe
+      // Tax here, so opt this session out instead of tagging every product.
+      managed_payments: { enabled: false },
       // The trim window travels with the Checkout Session itself (no
       // database needed) and is read back on the success page.
       metadata: {
