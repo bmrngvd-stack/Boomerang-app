@@ -7,14 +7,31 @@ const { execFile } = require("child_process");
 
 const PORT = process.env.PORT || 3000;
 const SITE_URL = process.env.SITE_URL || "http://localhost:3000";
-const PRICE_ONE_TIME = process.env.STRIPE_PRICE_ONE_TIME;
-const PRICE_SUBSCRIPTION = process.env.STRIPE_PRICE_SUBSCRIPTION;
+const PRICE_ONE_TIME = (process.env.STRIPE_PRICE_ONE_TIME || "").trim() || undefined;
+const PRICE_SUBSCRIPTION = (process.env.STRIPE_PRICE_SUBSCRIPTION || "").trim() || undefined;
+
+// Diagnostic only — reveals shape problems (stray whitespace/newlines/quotes
+// from a copy-paste) in env vars WITHOUT logging the actual secret values.
+function diagnoseEnvVar(name) {
+  const v = process.env[name];
+  if (v === undefined) {
+    console.log(`${name}: NOT SET`);
+    return;
+  }
+  console.log(
+    `${name}: length=${v.length} startsWithWhitespace=${/^\s/.test(v)} ` +
+    `endsWithWhitespace=${/\s$/.test(v)} containsInnerWhitespace=${/\s/.test(v.trim())} ` +
+    `containsQuotes=${v.includes('"') || v.includes("'")} ` +
+    `first6=${JSON.stringify(v.slice(0, 6))} last4=${JSON.stringify(v.slice(-4))}`
+  );
+}
+["STRIPE_SECRET_KEY", "STRIPE_PRICE_ONE_TIME", "STRIPE_PRICE_SUBSCRIPTION", "STRIPE_WEBHOOK_SECRET", "SITE_URL"].forEach(diagnoseEnvVar);
 
 // Stripe is optional at boot — the rest of the site (free tier) must keep
 // working even if payments haven't been configured yet on this deployment.
 let stripe = null;
 if (process.env.STRIPE_SECRET_KEY) {
-  stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+  stripe = require("stripe")(process.env.STRIPE_SECRET_KEY.trim());
 } else {
   console.warn("STRIPE_SECRET_KEY is not set — paid export endpoints will return an error until it's configured.");
 }
@@ -33,7 +50,7 @@ app.post("/api/webhook", express.raw({ type: "application/json" }), (req, res) =
     event = stripe.webhooks.constructEvent(
       req.body,
       req.headers["stripe-signature"],
-      process.env.STRIPE_WEBHOOK_SECRET
+      (process.env.STRIPE_WEBHOOK_SECRET || "").trim()
     );
   } catch (err) {
     console.error("Webhook signature verification failed:", err.message);
