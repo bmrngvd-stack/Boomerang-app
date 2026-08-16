@@ -1,0 +1,12 @@
+:root{
+--font-sans:"Instrument Sans","Helvetica Neue",Helvetica,sans-serif;
+--font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+/* scale — 1920/desktop values; hero steps clamp down on mobile */
+--text-xs:13px;--text-sm:14px;--text-base:16px;--text-md:17px;--text-lg:19px;--text-xl:22px;--text-2xl:27px;--text-3xl:34px;--text-4xl:44px;--text-5xl:56px;--text-6xl:68px;
+--display-hero:clamp(38px,7.2vw,68px);
+--display-section:clamp(28px,3.6vw,44px);
+--display-lead:clamp(17px,1.6vw,21px);
+--weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+--leading-tight:1.04;--leading-snug:1.18;--leading-normal:1.45;--leading-relaxed:1.62;
+--tracking-tighter:-0.028em;--tracking-tight:-0.016em;--tracking-normal:0em;--tracking-wide:0.02em;--tracking-caps:0.08em;
+}

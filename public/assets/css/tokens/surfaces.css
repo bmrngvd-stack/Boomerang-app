@@ -1,0 +1,11 @@
+:root{
+--radius-xs:4px;--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px;--radius-2xl:28px;--radius-pill:999px;
+--border-w:1px;--border-w-strong:1.5px;
+--shadow-xs:0 1px 2px rgba(15,14,13,.06);
+--shadow-sm:0 1px 3px rgba(15,14,13,.07),0 1px 2px rgba(15,14,13,.04);
+--shadow-md:0 6px 16px -4px rgba(15,14,13,.10),0 2px 4px rgba(15,14,13,.04);
+--shadow-lg:0 20px 48px -16px rgba(15,14,13,.18),0 4px 10px rgba(15,14,13,.05);
+--shadow-inset-top:inset 0 1px 0 rgba(255,255,255,.06);
+--ring-focus:0 0 0 3px var(--accent-ring);
+--ring-neutral:0 0 0 3px rgba(15,14,13,.10);
+}

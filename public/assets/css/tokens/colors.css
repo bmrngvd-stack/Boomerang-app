@@ -1,0 +1,22 @@
+:root{
+/* neutrals — warm-leaning greys, the base of the whole system */
+--n-0:#FFFFFF;--n-25:#FBFAF9;--n-50:#F6F5F3;--n-100:#EEECE8;--n-200:#E1DED9;--n-300:#C9C5BE;--n-400:#A6A19A;--n-500:#7B766F;--n-600:#57534D;--n-700:#3C3934;--n-800:#2A2824;--n-900:#1A1917;--n-950:#0F0E0D;
+/* accent — the single brand colour ("ember"), used only for action + emphasis */
+--brand-50:#FEF4EF;--brand-100:#FCE4D9;--brand-200:#F9C6B2;--brand-300:#F49D7D;--brand-400:#ED7349;--brand-500:#E2431A;--brand-600:#C43610;--brand-700:#9C2B0C;
+/* semantic hues — status only, never decoration */
+--green-50:#EDF7F1;--green-600:#1B7A4B;--amber-50:#FDF6E7;--amber-600:#B4740A;--red-50:#FDF0EF;--red-600:#C0322B;--blue-50:#EEF3FB;--blue-600:#2A5FA8;
+
+/* text */
+--text-primary:var(--n-900);--text-secondary:var(--n-600);--text-muted:var(--n-500);--text-faint:var(--n-400);--text-inverse:var(--n-0);--text-accent:var(--brand-600);
+/* surfaces */
+--surface-page:var(--n-0);--surface-subtle:var(--n-25);--surface-sunken:var(--n-50);--surface-card:var(--n-0);--surface-inverse:var(--n-950);--surface-accent-soft:var(--brand-50);
+/* borders */
+--border-subtle:var(--n-100);--border-default:var(--n-200);--border-strong:var(--n-300);--border-inverse:rgba(255,255,255,.14);
+/* action */
+--accent-solid:var(--brand-500);--accent-solid-hover:var(--brand-600);--accent-solid-active:var(--brand-700);--accent-soft:var(--brand-50);--accent-soft-hover:var(--brand-100);--accent-ring:rgba(226,67,26,.24);
+/* status pairs */
+--status-success-fg:var(--green-600);--status-success-bg:var(--green-50);--status-warn-fg:var(--amber-600);--status-warn-bg:var(--amber-50);--status-danger-fg:var(--red-600);--status-danger-bg:var(--red-50);--status-info-fg:var(--blue-600);--status-info-bg:var(--blue-50);
+/* media chrome — the one place dark UI is allowed */
+--media-bg:#141312;--media-scrim:rgba(15,14,13,.72);--media-track:#2A2824;--media-selection:rgba(226,67,26,.18);
+--link:var(--brand-600);--link-hover:var(--brand-700);
+}

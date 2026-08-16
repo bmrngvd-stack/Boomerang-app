@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trim your boomerang — Boomerang</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="wordmark" href="index.html">Boomerang</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a class="nav-link" id="replace-link" href="index.html">Drop a new video</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container studio-page">
+    <div class="eyebrow">Step 2 of 2</div>
+    <h1 class="section-title">Trim it and see the loop</h1>
+
+    <div id="empty-state" class="empty-state is-hidden">
+      <p>There's no video loaded in this editor.</p>
+      <a class="btn-primary" href="index.html#upload">Upload a video</a>
+    </div>
+
+    <div id="studio" class="studio-panel">
+      <div class="studio-video-wrap">
+        <video id="source-video" playsinline muted></video>
+      </div>
+      <p class="studio-note">Preview plays at reduced quality in your browser. Downloads and exports are full quality.</p>
+
+      <div class="studio-controls">
+        <div class="trim-header">
+          <span class="trim-label">Trim to a 1–3 second loop</span>
+          <button id="trim-reset" class="link-btn" type="button">Reset</button>
+        </div>
+        <div class="trim-track" id="trim-track">
+          <div class="trim-track__fill" id="trim-fill"></div>
+          <input id="trim-start" class="trim-handle" type="range" min="0" max="1" step="0.01" value="0" aria-label="Loop start">
+          <input id="trim-end" class="trim-handle" type="range" min="0" max="1" step="0.01" value="1" aria-label="Loop end">
+        </div>
+        <div id="trim-readout" class="trim-readout mono"></div>
+
+        <div class="playback-options">
+          <div class="option-group">
+            <div class="option-group__head">
+              <span class="option-group__label">Speed</span>
+              <span id="speed-value" class="option-group__value mono">1x</span>
+            </div>
+            <input id="speed-slider" class="option-slider" type="range" min="0" max="3" step="1" value="1" aria-label="Playback speed">
+            <div class="option-buttons" id="speed-buttons">
+              <button type="button" class="option-btn" data-speed="0.5">0.5x</button>
+              <button type="button" class="option-btn is-active" data-speed="1">1x</button>
+              <button type="button" class="option-btn" data-speed="2">2x</button>
+              <button type="button" class="option-btn" data-speed="3">3x</button>
+            </div>
+          </div>
+          <div class="option-group">
+            <div class="option-group__head">
+              <span class="option-group__label">Loops</span>
+              <span id="rep-value" class="option-group__value mono">1</span>
+            </div>
+            <input id="rep-slider" class="option-slider" type="range" min="0" max="3" step="1" value="0" aria-label="Number of loops">
+            <div class="option-buttons" id="rep-buttons">
+              <button type="button" class="option-btn is-active" data-rep="1">1 loop</button>
+              <button type="button" class="option-btn" data-rep="2">2 loops</button>
+              <button type="button" class="option-btn" data-rep="3">3 loops</button>
+              <button type="button" class="option-btn" data-rep="4">4 loops</button>
+            </div>
+          </div>
+        </div>
+
+        <button id="generate-btn" class="btn-primary" disabled>Preview bounce back</button>
+        <div id="render-status" class="render-status" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <section id="result" class="result is-hidden">
+      <div class="eyebrow">Your loop</div>
+      <h2 class="section-title">Pick how you want it</h2>
+      <div class="result-panel">
+        <div class="result-preview-wrap">
+          <canvas id="boomerang-canvas"></canvas>
+          <span class="preview-live-badge"><span class="preview-live-dot"></span>Looping preview</span>
+          <span class="watermark-badge">FREE PREVIEW</span>
+        </div>
+        <div class="result-cards">
+          <div class="price-card">
+            <div class="price-card__tier">Free</div>
+            <div class="price-card__price">€0</div>
+            <ul class="price-card__list">
+              <li>480p, watermarked</li>
+              <li>Unlimited tries</li>
+            </ul>
+            <button id="download-free-btn" class="btn-secondary">Download 480p file</button>
+            <div id="download-status" class="price-card__note" aria-live="polite"></div>
+          </div>
+          <div class="price-card price-card--accent">
+            <div class="price-card__badge">Best value</div>
+            <div class="price-card__tier">Unlimited</div>
+            <div class="price-card__price">€4.99<span>/month</span></div>
+            <ul class="price-card__list">
+              <li>Unlimited clean 1080p</li>
+              <li>GIF format included</li>
+              <li>Cancel any time</li>
+            </ul>
+            <button class="btn-primary" data-plan="subscription">Start subscription</button>
+          </div>
+          <div class="price-card">
+            <div class="price-card__tier">One export</div>
+            <div class="price-card__price">€2.99</div>
+            <ul class="price-card__list">
+              <li>Clean 1080p, no watermark</li>
+              <li>Credit never expires</li>
+            </ul>
+            <button class="btn-secondary" data-plan="one-time">Buy this export</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-legal">
+    <div class="container">© 2026 Boomerang · hello@boomerang.example · <a href="#" id="manage-sub-link">Manage subscription</a></div>
+  </div>
+</footer>
+
+<div id="paywall" class="paywall is-hidden" role="dialog" aria-modal="true" aria-labelledby="paywall-title">
+  <div class="paywall__backdrop" data-close></div>
+  <div class="paywall__panel">
+    <button class="paywall__close" data-close type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div class="eyebrow" id="paywall-kicker">One-time export</div>
+    <h2 id="paywall-title" class="paywall__title">Clean 1080p export</h2>
+    <p class="paywall__desc" id="paywall-desc">Watermark-free, full resolution. Ready right after checkout.</p>
+    <div class="paywall__price" id="paywall-price">€2.99</div>
+    <button class="btn-primary paywall__cta" id="paywall-cta" type="button">Pay and export</button>
+    <p class="paywall__fineprint" id="paywall-fine">One-time charge. Your export credit never expires.</p>
+    <div id="paywall-note" class="paywall__note" aria-live="polite"></div>
+    <button class="link-btn paywall__restore" id="paywall-restore" type="button">Already paid? Restore purchase</button>
+  </div>
+</div>
+
+<script src="assets/js/storage.js"></script>
+<script src="assets/js/trim.js"></script>
+<script src="assets/js/paywall.js"></script>
+<script src="assets/js/manage-subscription.js"></script>
+<script>
+(() => {
+  "use strict";
+  const studioPanel = document.getElementById("studio");
+  const emptyState = document.getElementById("empty-state");
+  const replaceLink = document.getElementById("replace-link");
+
+  function showEmpty() {
+    studioPanel.classList.add("is-hidden");
+    emptyState.classList.remove("is-hidden");
+  }
+
+  replaceLink.addEventListener("click", () => {
+    if (window.BoomerangStorage) window.BoomerangStorage.clearFile();
+  });
+
+  if (!window.BoomerangStorage || !window.BoomerangStudio) {
+    showEmpty();
+    return;
+  }
+
+  window.BoomerangStorage.loadFile()
+    .then((file) => {
+      if (!file) {
+        showEmpty();
+        return;
+      }
+      window.BoomerangStudio.load(file);
+    })
+    .catch(showEmpty);
+})();
+</script>
+</body>
+</html>

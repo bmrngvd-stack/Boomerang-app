@@ -1,0 +1,9 @@
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--surface-page);color:var(--text-primary);font-family:var(--font-sans);font-size:var(--text-base);line-height:var(--leading-normal);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+h1,h2,h3,h4{margin:0;font-weight:var(--weight-semibold);letter-spacing:var(--tracking-tight);line-height:var(--leading-snug);text-wrap:balance}
+p{margin:0}
+a{color:var(--link);text-decoration:none;text-underline-offset:3px;transition:color var(--dur-fast) var(--ease-out)}
+a:hover{color:var(--link-hover);text-decoration:underline}
+button{font:inherit}
+:focus-visible{outline:none;box-shadow:var(--ring-focus)}
+code,kbd,.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}

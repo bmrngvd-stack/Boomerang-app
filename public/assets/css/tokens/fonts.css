@@ -1,0 +1,4 @@
+/* Instrument Sans + JetBrains Mono, served from Google Fonts.
+   SUBSTITUTION: no brand font files were provided. Swap these @font-face-backed
+   families for real binaries in assets/fonts/ when available. */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap");

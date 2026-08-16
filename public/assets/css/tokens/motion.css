@@ -1,0 +1,17 @@
+:root{
+--ease-out:cubic-bezier(.2,.8,.25,1);
+--ease-in-out:cubic-bezier(.4,0,.2,1);
+--ease-boomerang:cubic-bezier(.5,0,.5,1);
+--dur-instant:80ms;
+--dur-fast:130ms;
+--dur-base:190ms;
+--dur-slow:320ms;
+--dur-loop:1400ms;
+--press-scale:0.985;
+}
+@media (prefers-reduced-motion:reduce){:root{
+--dur-instant:0ms;
+--dur-fast:0ms;
+--dur-base:0ms;
+--dur-slow:0ms;
+}}
